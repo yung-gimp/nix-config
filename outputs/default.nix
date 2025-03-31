@@ -1,20 +1,18 @@
-{
-  self,
-  inputs,
-  lib,
-  ...
-}:
+{ self, nixpkgs, ... }:
 let
 
+  inputs = self.inputs;
+  lib = nixpkgs.lib;
+
   hosts = builtins.attrNames (
-    inputs.nixpkgs.lib.attrsets.filterAttrs (_name: type: type == "directory") (
+    inputs.nixpkgs.lib.attrsets.filterAttrs (_n: t: t == "directory") (
       builtins.readDir ./nixosConfigurations
     )
   );
 
-  mkHost =
-    hostname:
-    inputs.nixpkgs.lib.nixosSystem {
+  mkHost = (
+    hostname: {
+    hostname = nixpkgs.lib.nixosSystem {
 
       specialArgs = {
         pkgs-stable = import inputs.nixpkgs-stable {
@@ -34,10 +32,10 @@ let
         inputs.impermanence.nixosModules.impermanence
       ];
     };
+    }
+    );
+
 in
 {
-  flake = {
-    nixosConfigurations = lib.genAttrs hosts mkHost;
-    # imports = [ ./homeManagerModules ];
-  };
+  nixosConfigurations = lib.genAttrs hosts mkHost;
 }

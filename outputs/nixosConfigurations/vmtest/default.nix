@@ -27,6 +27,7 @@
           uid = 1000;
           role = "admin";
           tags = [ "base" ];
+          hashedPassword = "$6$i8pqqPIplhh3zxt1$bUH178Go8y5y6HeWKIlyjMUklE2x/8Vy9d3KiCD1WN61EtHlrpWrGJxphqu7kB6AERg6sphGLonDeJvS/WC730";
         };
       };
     };

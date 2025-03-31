@@ -16,25 +16,11 @@
     ];
   };
 
-  outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-
-      imports = [
-        inputs.fpFmt.flakeModule
-        ./outputs
-      ];
-    };
+  outputs = inputs: import ./outputs inputs;
 
   inputs = {
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     fpFmt = {
@@ -43,12 +29,12 @@
     };
 
     ff = {
-      url = "github:freedpom/FreedpomFlake";
+      url = "github:freedpom/FreedpomFlake/network-testing";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -56,6 +42,8 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    systems.url = "github:nix-systems/default-linux";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 

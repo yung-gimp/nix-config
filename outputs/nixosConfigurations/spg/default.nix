@@ -9,29 +9,29 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   system.stateVersion = "24.11";
 
-  ff = {
-    system = {
-      nix.enable = true;
-      systemd-boot.enable = true;
-      persistence.enable = true;
-    };
-    services.kmscon = {
-      enable = true;
-      disableAt = [
-        "tty1"
-      ];
-    };
-    common.enable = true;
-    userConfig = {
-      users = {
-        codman = {
-          uid = 1000;
-          role = "admin";
-          tags = [ "base" ];
-        };
-      };
-    };
-  };
+  # ff = {
+  #   system = {
+  #     nix.enable = true;
+  #     systemd-boot.enable = true;
+  #     persistence.enable = true;
+  #   };
+  #   services.kmscon = {
+  #     enable = true;
+  #     disableAt = [
+  #       "tty1"
+  #     ];
+  #   };
+  #   common.enable = true;
+  #   userConfig = {
+  #     users = {
+  #       codman = {
+  #         uid = 1000;
+  #         role = "admin";
+  #         tags = [ "base" ];
+  #       };
+  #     };
+  #   };
+  # };
 
   environment = {
     systemPackages = with pkgs; [
