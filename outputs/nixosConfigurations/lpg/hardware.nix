@@ -10,6 +10,7 @@ _:
       "xhci_pci"
       "ahci"
       "usbhid"
+      "hid-generic"
       "usb_storage"
       "sd_mod"
     ];
