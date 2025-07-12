@@ -2,7 +2,7 @@
   disko.devices = {
     disk.nix = {
       type = "disk";
-      device = "nvme-KINGSTON_OM8SEP41024Q-A0_50026B7686814B14";
+      device = "/dev/disk/by-id/nvme-KINGSTON_OM8SEP41024Q-A0_50026B7686814B14";
       content = {
         type = "gpt";
         partitions = {
@@ -52,7 +52,7 @@
 
     disk.home = {
       type = "disk";
-      device = "nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TA52470B";
+      device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TA52470B";
       content = {
         type = "luks";
         name = "homecrypt";
@@ -76,7 +76,7 @@
 
     disk.games = {
       type = "disk";
-      device = "nvme-CT4000T700SSD3_2339E879638C";
+      device = "/dev/disk/by-id/nvme-CT4000T700SSD3_2339E879638C";
       content = {
         type = "btrfs";
         extraArgs = [ "-f" ];
