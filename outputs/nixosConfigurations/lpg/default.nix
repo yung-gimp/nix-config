@@ -35,6 +35,8 @@
   system.stateVersion = "25.05";
 
   imports = [
+    inputs.ff.nixosModules.freedpomFlake
+    inputs.disko.nixosModules.disko
     ./disko.nix
     ./hardware.nix
   ];
