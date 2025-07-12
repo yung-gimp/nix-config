@@ -31,6 +31,9 @@
     };
   };
 
+  nixpkgs.hostPlatform = "x86-64";
+  system.stateVersion = "25.05";
+
   imports = [
     ./disko.nix
     ./hardware.nix
