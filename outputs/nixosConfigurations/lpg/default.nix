@@ -1,31 +1,22 @@
-{
-  inputs,
-  lib,
-  ...
-}:
-{
+{ inputs, ... }:
 
-  system.stateVersion = "24.11";
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
+{
   ff = {
     system = {
       nix.enable = true;
       systemd-boot.enable = true;
-      fontsu.enable = true;
       persistence = {
         enable = true;
         ephHome = true;
       };
-    };
 
+    };
     services.kmscon = {
       enable = true;
       disableAt = [
         "tty1"
       ];
     };
-
     common.enable = true;
     userConfig = {
       users = {
@@ -40,15 +31,7 @@
     };
   };
 
-  fileSystems."/etc/nixos" = {
-    device = "viofs";
-    fsType = "virtiofs";
-    options = [ "nofail" ];
-  };
-
   imports = [
-    inputs.ff.nixosModules.freedpomFlake
-    inputs.disko.nixosModules.disko
     ./disko.nix
     ./hardware.nix
   ];

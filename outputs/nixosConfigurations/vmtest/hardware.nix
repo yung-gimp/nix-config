@@ -14,4 +14,5 @@
     ];
     kernelModules = [ "kvm-amd" ];
   };
+  hardware.graphics.enable = true;
 }

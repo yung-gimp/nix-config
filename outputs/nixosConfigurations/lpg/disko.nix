@@ -2,11 +2,11 @@
   disko.devices = {
     disk.nix = {
       type = "disk";
-      device = "/dev/disk/by-id/nvme-KINGSTON_OM8PCP3512F-AI1_50026B768407BAF3";
+      device = "nvme-KINGSTON_OM8SEP41024Q-A0_50026B7686814B14";
       content = {
         type = "gpt";
         partitions = {
-          ESP = {
+          boot = {
             size = "1G";
             type = "EF00";
             content = {
@@ -52,7 +52,7 @@
 
     disk.home = {
       type = "disk";
-      device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S599NJ0N339115R";
+      device = "nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0TA52470B";
       content = {
         type = "luks";
         name = "homecrypt";
@@ -63,12 +63,30 @@
           extraArgs = [ "-f" ];
           subvolumes = {
             "home" = {
-              mountpoint = "/nix/persist/home/codman";
+              mountpoint = "/nix/persist/home";
               mountOptions = [
                 "compress-force=zstd:1"
                 "noatime"
               ];
             };
+          };
+        };
+      };
+    };
+
+    disk.games = {
+      type = "disk";
+      device = "nvme-CT4000T700SSD3_2339E879638C";
+      content = {
+        type = "btrfs";
+        extraArgs = [ "-f" ];
+        subvolumes = {
+          "home" = {
+            mountpoint = "/nix/persist/games";
+            mountOptions = [
+              "compress-force=zstd:1"
+              "noatime"
+            ];
           };
         };
       };
@@ -83,5 +101,4 @@
       ];
     };
   };
-  fileSystems."/nix".neededForBoot = true;
 }

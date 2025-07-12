@@ -28,33 +28,35 @@
       imports = [
         inputs.fpFmt.flakeModule
         inputs.home-manager.flakeModules.home-manager
+        inputs.agenix-rekey.flakeModule
         ./outputs
       ];
+
+      perSystem =
+        {
+          config,
+          pkgs,
+          lib,
+          ...
+        }:
+        {
+          devShells.default = lib.mkForce (
+            pkgs.mkShell {
+              nativeBuildInputs = [
+                config.agenix-rekey.package
+                pkgs.age-plugin-fido2-hmac
+              ];
+            }
+          );
+        };
     };
 
   inputs = {
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    fpFmt = {
-      url = "github:freedpom/FreedpomFormatter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ff = {
-      url = "github:freedpom/FreedpomFlake/uMod";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     cm = {
       url = "github:yung-gimp/homeModule";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -63,10 +65,37 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    fpFmt = {
+      url = "github:freedpom/FreedpomFormatter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ff = {
+      url = "github:freedpom/FreedpomFlake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix-rekey.url = "github:oddlama/agenix-rekey";
+
+    firefox-addons.url = "gitlab:/rycee/nur-expressions?dir=pkgs/firefox-addons";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     impermanence.url = "github:nix-community/impermanence";
-
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 }
